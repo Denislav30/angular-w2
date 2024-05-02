@@ -1,0 +1,25 @@
+<div *ngIf="!allRated">
+  <div *ngIf="!editMode">
+    <h2>{{ bookCollection[bookIndex].title }}</h2>
+    <p>{{ bookCollection[bookIndex].description }}</p>
+    <h3>Автор: {{ bookCollection[bookIndex].author }}</h3>
+    <h4>Рейтинг до момента: {{ averageRating | number:'1.1-2' }}</h4> 
+    <input type="number" [(ngModel)]="currentRating" min="1" max="5">
+    <button (click)="addRating(currentRating)">Добави рейтинг</button>
+    <button (click)="toggleEditMode()">Редактирай</button>
+    <button (click)="processPreviousBook()">Предишна книга</button>
+    <button (click)="processNextBook()">Следваща книга</button>
+  </div>
+
+  <div *ngIf="editMode">
+    <input [(ngModel)]="bookCollection[bookIndex].title" placeholder="Заглавие на книгата">
+    <input [(ngModel)]="bookCollection[bookIndex].description" placeholder="Описание на книгата">
+    <input [(ngModel)]="bookCollection[bookIndex].author" placeholder="Автор на книгата">
+    <button (click)="updateBookInfo(bookCollection[bookIndex].title, bookCollection[bookIndex].description, bookCollection[bookIndex].author)">Запази промените</button>
+  </div>
+</div>
+
+<div *ngIf="allRated">
+  <button (click)="restartRating()">Стартирай отново</button>
+  <button (click)="completeRating()">Завърши оценяването</button>
+</div>
